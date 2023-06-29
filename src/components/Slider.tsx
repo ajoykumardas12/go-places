@@ -18,7 +18,7 @@ function Slider() {
 
   const { width } = useWindowSize();
 
-  const animatedValue = useSpring(page, { stiffness: 60, damping: 11 });
+  const animatedValue = useSpring(page, { stiffness: 50, damping: 11 });
   useEffect(() => {
     animatedValue.set(page);
   }, [animatedValue, page]);
