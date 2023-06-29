@@ -2,8 +2,9 @@
 import places from "../data/places";
 import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PlaceType } from "../types/types";
+import { useHasFocus } from "../hooks/useHasFocus";
 
 function Slider() {
   const [page, setPage] = useState(0);
@@ -23,12 +24,20 @@ function Slider() {
     animatedValue.set(page);
   }, [animatedValue, page]);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     next();
-  //   }, 5000);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
+  const focus = useHasFocus();
+
+  useEffect(() => {
+    if (!autoPlayRef.current) {
+      autoPlayRef.current = setInterval(() => {
+        if (focus)
+          setPage((prev) => {
+            return prev + 1;
+          });
+      }, 5000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full h-screen relative overflow-hidden">
