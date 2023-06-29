@@ -104,6 +104,7 @@ function Slide({
     >
       <motion.img
         src={`/images/${place.imageSrc}`}
+        alt={place.name}
         className="w-full h-full object-cover"
       />
     </motion.div>
