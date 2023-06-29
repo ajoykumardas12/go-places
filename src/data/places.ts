@@ -29,6 +29,12 @@ const places = [
     country: "Spain",
     imageSrc: "alto-del-perdon-spain.jpg",
   },
+  {
+    id: "321d475a-68f5-4f24-aba4-3341e152857a",
+    name: "Baie-Mahault, Guadeloupe",
+    country: "France",
+    imageSrc: "Baie-Mahault-Guadeloupe-France.jpg",
+  },
 ];
 
 export default places;
