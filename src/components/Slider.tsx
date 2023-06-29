@@ -53,19 +53,6 @@ function Slider() {
           />
         );
       })}
-
-      <button
-        onClick={() => paginate(1)}
-        className="absolute bottom-4 right-2 bg-gray-700"
-      >
-        next
-      </button>
-      <button
-        onClick={() => paginate(-1)}
-        className="absolute bottom-4 left-2 bg-gray-700"
-      >
-        previous
-      </button>
     </div>
   );
 }
@@ -107,6 +94,10 @@ function Slide({
         alt={place.name}
         className="w-full h-full object-cover"
       />
+      <div className="absolute bottom-20 left-2 sm:left-8 text-white/80 font-semibold">
+        <div className="text-base sm:text-xl">{place.name}</div>
+        <div className="text-lg sm:text-2xl">{place.country}</div>
+      </div>
     </motion.div>
   );
 }
