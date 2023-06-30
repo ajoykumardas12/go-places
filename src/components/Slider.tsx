@@ -1,11 +1,13 @@
 // import { useEffect, useState } from "react";
 import places from "../data/places";
-import { useSpring } from "framer-motion";
+import { motion, useSpring } from "framer-motion";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { useEffect, useRef, useState } from "react";
 import { useHasFocus } from "../hooks/useHasFocus";
 import Slide from "./Slide";
 import Progressbar from "./Progressbar";
+import RightArrow from "./icons/RightArrow";
+import LeftArrow from "./icons/LeftArrow";
 
 function Slider() {
   const [page, setPage] = useState(0);
@@ -82,17 +84,18 @@ function Slider() {
           <Progressbar key={page} time={slideDuration} />
         </div>
       )}
-      <button
-        onClick={nextSlide}
-        className="absolute bottom-40 right-2 bg-gray-700"
-      >
-        next
+      <button onClick={nextSlide} className="absolute bottom-2/4 right-2 group">
+        <motion.div whileTap={{ scale: 0.4 }}>
+          <RightArrow iconClass="w-10 h-10 sm:w-14 sm:h-14 fill-gray-400 group-hover:fill-violet-700 opacity-50 group-hover:opacity-100" />
+        </motion.div>
       </button>
       <button
         onClick={previousSlide}
-        className="absolute bottom-40 left-2 bg-gray-700"
+        className="absolute bottom-2/4 left-2 group"
       >
-        previous
+        <motion.div whileTap={{ scale: 0.4 }}>
+          <LeftArrow iconClass="w-10 h-10 sm:w-14 sm:h-14 fill-gray-400 group-hover:fill-violet-700 opacity-50 group-hover:opacity-100" />
+        </motion.div>
       </button>
     </div>
   );

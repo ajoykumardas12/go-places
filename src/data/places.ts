@@ -1,4 +1,6 @@
-const places = [
+import { PlaceType } from "../types";
+
+const places: PlaceType[] = [
   {
     id: "0519c3c8-fd2f-4d2a-99cb-11ea471e1958",
     name: "Dal Lake",

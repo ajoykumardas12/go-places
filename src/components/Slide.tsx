@@ -1,5 +1,5 @@
 import { MotionValue, motion, useTransform } from "framer-motion";
-import { PlaceType } from "../types/types";
+import { PlaceType } from "../types";
 
 function Slide({
   width,

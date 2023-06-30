@@ -4,3 +4,7 @@ export interface PlaceType {
   country: string;
   imageSrc: string;
 }
+
+export interface IconProps {
+  iconClass: string;
+}

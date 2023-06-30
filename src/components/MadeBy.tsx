@@ -11,7 +11,7 @@ function MadeBy() {
       >
         Made by Ajoy{" "}
         <div className="opacity-0 group-hover:opacity-100 transition hidden sm:block">
-          <ExternalLink />
+          <ExternalLink iconClass="" />
         </div>
       </a>
     </div>
