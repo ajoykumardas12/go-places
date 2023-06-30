@@ -39,7 +39,6 @@ function Slider() {
   const clearAutoplay = () => {
     clearInterval(autoPlayRef.current);
     autoPlayRef.current = undefined;
-    console.log(autoPlayRef);
   };
 
   useEffect(() => {
@@ -48,8 +47,24 @@ function Slider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const arrowKeyNavigation = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        nextSlide();
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        previousSlide();
+      }
+    };
+    document.body.addEventListener("keydown", arrowKeyNavigation);
+    return () => {
+      document.body.removeEventListener("keydown", arrowKeyNavigation);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const nextSlide = () => {
-    console.log("next");
     clearAutoplay();
     setPage((prev) => {
       return prev + 1;
@@ -57,7 +72,6 @@ function Slider() {
     startAutoplay();
   };
   const previousSlide = () => {
-    console.log("previous");
     clearAutoplay();
     setPage((prev) => {
       return prev - 1;
