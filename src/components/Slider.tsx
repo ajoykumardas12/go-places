@@ -27,10 +27,9 @@ function Slider() {
   const startAutoplay = () => {
     if (!autoPlayRef.current) {
       autoPlayRef.current = setInterval(() => {
-        if (focus)
-          setPage((prev) => {
-            return prev + 1;
-          });
+        setPage((prev) => {
+          return prev + 1;
+        });
       }, slideDuration * 1000);
     }
   };
