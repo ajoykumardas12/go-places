@@ -21,8 +21,8 @@ function Slider() {
     animatedValue.set(page);
   }, [animatedValue, page]);
 
-  useEffect(() => {
-    setSlideLoaded(true);
+  const startAutoplay = () => {
+    console.log("trying autoplay");
     if (!autoPlayRef.current) {
       autoPlayRef.current = setInterval(() => {
         if (focus)
@@ -30,9 +30,38 @@ function Slider() {
             return prev + 1;
           });
       }, slideDuration * 1000);
+      console.log("started autoplay");
     }
+  };
+
+  const clearAutoplay = () => {
+    clearInterval(autoPlayRef.current);
+    autoPlayRef.current = undefined;
+    console.log(autoPlayRef);
+  };
+
+  useEffect(() => {
+    setSlideLoaded(true);
+    startAutoplay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const nextSlide = () => {
+    console.log("next");
+    clearAutoplay();
+    setPage((prev) => {
+      return prev + 1;
+    });
+    startAutoplay();
+  };
+  const previousSlide = () => {
+    console.log("previous");
+    clearAutoplay();
+    setPage((prev) => {
+      return prev - 1;
+    });
+    startAutoplay();
+  };
 
   return (
     <div className="w-full h-screen relative overflow-hidden">
@@ -53,6 +82,18 @@ function Slider() {
           <Progressbar key={page} time={slideDuration} />
         </div>
       )}
+      <button
+        onClick={nextSlide}
+        className="absolute bottom-40 right-2 bg-gray-700"
+      >
+        next
+      </button>
+      <button
+        onClick={previousSlide}
+        className="absolute bottom-40 left-2 bg-gray-700"
+      >
+        previous
+      </button>
     </div>
   );
 }
