@@ -15,6 +15,7 @@ function Slider() {
   const { width } = useWindowSize();
   const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
   const focus = useHasFocus();
+  const isFirstRenderRef = useRef(true);
   const sliderLength = places.length;
   const slideDuration = 6;
 
@@ -24,7 +25,6 @@ function Slider() {
   }, [animatedValue, page]);
 
   const startAutoplay = () => {
-    console.log("trying autoplay");
     if (!autoPlayRef.current) {
       autoPlayRef.current = setInterval(() => {
         if (focus)
@@ -32,7 +32,6 @@ function Slider() {
             return prev + 1;
           });
       }, slideDuration * 1000);
-      console.log("started autoplay");
     }
   };
 
@@ -47,6 +46,7 @@ function Slider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Arrow key navigation
   useEffect(() => {
     const arrowKeyNavigation = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
@@ -63,6 +63,25 @@ function Slider() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    // if first render toggle ref else handle autoplay
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+    } else {
+      if (focus) {
+        // When focus is back, go next after 3s and start usual autoplay
+        // This triggers next at 3s during first load due to react strictmode in dev mode
+        setTimeout(() => {
+          nextSlide();
+          startAutoplay();
+        }, 3000);
+      } else {
+        clearAutoplay();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus]);
 
   const nextSlide = () => {
     clearAutoplay();
