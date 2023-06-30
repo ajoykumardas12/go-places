@@ -9,11 +9,12 @@ import Progressbar from "./Progressbar";
 
 function Slider() {
   const [page, setPage] = useState(0);
+  const [slideLoaded, setSlideLoaded] = useState(false);
   const { width } = useWindowSize();
   const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
   const focus = useHasFocus();
   const sliderLength = places.length;
-  const slideDuration = 5;
+  const slideDuration = 6;
 
   const animatedValue = useSpring(page, { stiffness: 50, damping: 11 });
   useEffect(() => {
@@ -21,6 +22,7 @@ function Slider() {
   }, [animatedValue, page]);
 
   useEffect(() => {
+    setSlideLoaded(true);
     if (!autoPlayRef.current) {
       autoPlayRef.current = setInterval(() => {
         if (focus)
@@ -46,9 +48,11 @@ function Slider() {
           />
         );
       })}
-      <div className="absolute bottom-14 left-2 sm:left-8">
-        <Progressbar key={page} time={slideDuration} />
-      </div>
+      {slideLoaded && (
+        <div className="absolute bottom-14 left-2 sm:left-8">
+          <Progressbar key={page} time={slideDuration} />
+        </div>
+      )}
     </div>
   );
 }
