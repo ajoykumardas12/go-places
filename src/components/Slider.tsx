@@ -5,6 +5,7 @@ import { useWindowSize } from "../hooks/useWindowSize";
 import { useEffect, useRef, useState } from "react";
 import { useHasFocus } from "../hooks/useHasFocus";
 import Slide from "./Slide";
+import Progressbar from "./Progressbar";
 
 function Slider() {
   const [page, setPage] = useState(0);
@@ -12,6 +13,7 @@ function Slider() {
   const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
   const focus = useHasFocus();
   const sliderLength = places.length;
+  const slideDuration = 5;
 
   const animatedValue = useSpring(page, { stiffness: 50, damping: 11 });
   useEffect(() => {
@@ -25,7 +27,7 @@ function Slider() {
           setPage((prev) => {
             return prev + 1;
           });
-      }, 5000);
+      }, slideDuration * 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -44,6 +46,9 @@ function Slider() {
           />
         );
       })}
+      <div className="absolute bottom-14 left-2 sm:left-8">
+        <Progressbar key={page} time={slideDuration} />
+      </div>
     </div>
   );
 }
