@@ -1,4 +1,5 @@
 import { PlaceType } from "../types";
+import shufflePlaces from "../utils/shufflePlaces";
 
 const places: PlaceType[] = [
   {
@@ -110,5 +111,7 @@ const places: PlaceType[] = [
     imageSrc: "O-Quy-Ho-pass-Vietnam.jpg",
   },
 ];
+
+shufflePlaces(places);
 
 export default places;
