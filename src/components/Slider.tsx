@@ -14,6 +14,7 @@ function Slider() {
   const [slideLoaded, setSlideLoaded] = useState(false);
   const { width } = useWindowSize();
   const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const focus = useHasFocus();
   const isFirstRenderRef = useRef(true);
   const sliderLength = places.length;
@@ -71,7 +72,7 @@ function Slider() {
       if (focus) {
         // When focus is back, go next after 3s and start usual autoplay
         // This triggers next at 3s during first load due to react strictmode in dev mode
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           nextSlide();
           startAutoplay();
         }, 3000);
@@ -84,6 +85,7 @@ function Slider() {
 
   const nextSlide = () => {
     clearAutoplay();
+    clearTimeout(timeoutRef.current);
     setPage((prev) => {
       return prev + 1;
     });
@@ -91,6 +93,7 @@ function Slider() {
   };
   const previousSlide = () => {
     clearAutoplay();
+    clearTimeout(timeoutRef.current);
     setPage((prev) => {
       return prev - 1;
     });

@@ -37,6 +37,7 @@ function Slide({
         src={`/images/${place.imageSrc}`}
         alt={place.name}
         className="w-full h-full object-cover select-none pointer-events-none"
+        loading="lazy"
       />
       <div className="absolute bottom-20 left-2 sm:left-8 text-white/80 font-semibold">
         <div className="text-base sm:text-xl">{place.name}</div>
