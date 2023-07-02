@@ -18,7 +18,7 @@ function Slider() {
   const focus = useHasFocus();
   const isFirstRenderRef = useRef(true);
   const sliderLength = places.length;
-  const slideDuration = 6;
+  const slideDuration = 8;
 
   const animatedValue = useSpring(page, { stiffness: 50, damping: 11 });
   useEffect(() => {
@@ -75,7 +75,7 @@ function Slider() {
         timeoutRef.current = setTimeout(() => {
           nextSlide();
           startAutoplay();
-        }, 3000);
+        }, 4000);
       } else {
         clearAutoplay();
       }
